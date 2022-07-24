@@ -31,7 +31,7 @@ public class Main {
 
 				Article article = new Article(id, title, body); // Article 조립
 				articles.add(article); // 게시글 배열에 작성한 게시글 저장
-				
+
 				System.out.printf("%d번 글이 생성되었습니다.\n", id);
 			} else if (cmd.equals("article list")) {
 				if (articles.size() == 0) {
@@ -44,6 +44,11 @@ public class Main {
 					System.out.printf("%d       |       %s\n", article.id, article.title);
 				}
 
+			} else if (cmd.startsWith("article detail ")) {
+				String[] cmdBits = cmd.split(" ");
+				int id = Integer.parseInt(cmdBits[2]); // "1" -> 1
+				
+				
 			} else {
 				System.out.println("없는 명령어입니다.");
 			}
