@@ -49,6 +49,7 @@ public class Main {
 				int id = Integer.parseInt(cmdBits[2]); // "1" -> 1
 				
 				
+				
 			} else {
 				System.out.println("없는 명령어입니다.");
 			}
