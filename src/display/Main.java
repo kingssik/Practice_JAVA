@@ -53,26 +53,24 @@ public class Main {
 
 				int id = Integer.parseInt(cmdBits[2]);
 
-				Article foundArticle = null;
+				int foundIndex = -1;	// 배열에 원소가 없다는 의미(null의 의미)
 
 				for (int i = 0; i < articles.size(); i++) {
 					Article article = articles.get(i);
 
 					if (article.id == id) {
-						foundArticle = article;
+						foundIndex = i;		// 찾은 게시물의 인덱스번호 i
 						break;
 					}
 				}
 
-				if (foundArticle == null) {
-					System.out.printf("%d번 게시물은 없습니다\n", id);
+				if (foundIndex == -1) {
+					System.out.printf("%d번 게시물은 없습니다.\n", id);
 					continue;
 				}
-				// size() : 3
-				// index : 0 1 2
-				// id : 1 2 3
- 				articles.remove(id - 1);		// 문제 발생 : 게시물 순서 섞이면 오류발생
-				System.out.printf("%d번 게시물을 삭제했습니다\n", id);
+				
+ 				articles.remove(foundIndex);		// 문제 해결 : 게시물 구분을 id에서 배열의 인덱스 번호로 변경
+				System.out.printf("%d번 게시물을 삭제했습니다.\n", id);
 
 			} else if (cmd.startsWith("article detail ")) {
 
