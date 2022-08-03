@@ -6,13 +6,15 @@ import java.util.Scanner;
 
 public class Main {
 
+	static List<Article> articles = new ArrayList<>();
+
 	public static void main(String[] args) {
 		System.out.println("====프로그램 시작====");
 
+		makeTestData();
+
 		Scanner sc = new Scanner(System.in);
 		int lastArticleId = 0;
-
-		List<Article> articles = new ArrayList<>();
 
 		while (true) {
 			System.out.print("명령어 ) ");
@@ -53,13 +55,13 @@ public class Main {
 
 				int id = Integer.parseInt(cmdBits[2]);
 
-				int foundIndex = -1;	// 배열에 원소가 없다는 의미(null의 의미)
+				int foundIndex = -1; // 배열에 원소가 없다는 의미(null의 의미)
 
 				for (int i = 0; i < articles.size(); i++) {
 					Article article = articles.get(i);
 
 					if (article.id == id) {
-						foundIndex = i;		// 찾은 게시물의 인덱스번호 i
+						foundIndex = i; // 찾은 게시물의 인덱스번호 i
 						break;
 					}
 				}
@@ -68,8 +70,8 @@ public class Main {
 					System.out.printf("%d번 게시물은 없습니다.\n", id);
 					continue;
 				}
-				
- 				articles.remove(foundIndex);		// 문제 해결 : 게시물 구분을 id에서 배열의 인덱스 번호로 변경
+
+				articles.remove(foundIndex); // 문제 해결 : 게시물 구분을 id에서 배열의 인덱스 번호로 변경
 				System.out.printf("%d번 게시물을 삭제했습니다.\n", id);
 
 			} else if (cmd.startsWith("article detail ")) {
@@ -92,12 +94,14 @@ public class Main {
 				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 없어\n", id);
 					continue;
-				} else {
-					System.out.printf("번호 : %d\n", foundArticle.id);
-					System.out.printf("날짜 : %s\n", foundArticle.regDate);
-					System.out.printf("제목 : %s\n", foundArticle.title);
-					System.out.printf("내용 : %s\n", foundArticle.body);
 				}
+				foundArticle.incereaseHit();
+				
+				System.out.printf("번호 : %d\n", foundArticle.id);
+				System.out.printf("날짜 : %s\n", foundArticle.regDate);
+				System.out.printf("제목 : %s\n", foundArticle.title);
+				System.out.printf("내용 : %s\n", foundArticle.body);
+				System.out.printf("조회수 : %s\n", foundArticle.hit);
 
 			} else {
 				System.out.println("없는 명령어입니다.");
@@ -111,16 +115,38 @@ public class Main {
 		sc.close();
 	}
 
+	private static void makeTestData() {
+		System.out.println("테스트를 위한 데이터를 생성합니다.");
+		
+		articles.add(new Article(1, Util.getNowDateStr(), "제목1", "내용1", 11))
+		articles.add(new Article(2, Util.getNowDateStr(), "제목2", "내용2", 22))
+		articles.add(new Article(3, Util.getNowDateStr(), "제목3", "내용3", 33))
+	}
+
 }
 
 class Article {
 	int id;
+	int hit;
 	String title;
 	String body;
 	String regDate;
 
 	public Article(int id, String regDate, String title, String body) {
 		this.id = id;
+		this.regDate = regDate;
+		this.title = title;
+		this.body = body;
+		this.hit = 0;
+	}
+
+	public void incereaseHit() {
+		hit++;
+	}
+
+	public Article(int id, int hit, String regDate, String title, String body) {
+		this.id = id;
+		this.hit = hit;
 		this.regDate = regDate;
 		this.title = title;
 		this.body = body;
