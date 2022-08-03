@@ -34,8 +34,8 @@ public class Main {
 				System.out.printf("내용 : ");
 				String body = sc.nextLine();
 
-				Article article = new Article(id, regDate, title, body); // Article 조립
-				articles.add(article); // 게시글 배열에 작성한 게시글 저장
+				Article article = new Article(id, regDate, title, body); 
+				articles.add(article); 
 
 				System.out.printf("%d번 글이 생성되었습니다.\n", id);
 			} else if (cmd.equals("article list")) {
@@ -55,13 +55,13 @@ public class Main {
 
 				int id = Integer.parseInt(cmdBits[2]);
 
-				int foundIndex = -1; // 배열에 원소가 없다는 의미(null의 의미)
+				int foundIndex = -1; 
 
 				for (int i = 0; i < articles.size(); i++) {
 					Article article = articles.get(i);
 
 					if (article.id == id) {
-						foundIndex = i; // 찾은 게시물의 인덱스번호 i
+						foundIndex = i; 
 						break;
 					}
 				}
@@ -71,7 +71,7 @@ public class Main {
 					continue;
 				}
 
-				articles.remove(foundIndex); // 문제 해결 : 게시물 구분을 id에서 배열의 인덱스 번호로 변경
+				articles.remove(foundIndex); 
 				System.out.printf("%d번 게시물을 삭제했습니다.\n", id);
 
 			} else if (cmd.startsWith("article detail ")) {
@@ -96,7 +96,7 @@ public class Main {
 					continue;
 				}
 				foundArticle.incereaseHit();
-				
+
 				System.out.printf("번호 : %d\n", foundArticle.id);
 				System.out.printf("날짜 : %s\n", foundArticle.regDate);
 				System.out.printf("제목 : %s\n", foundArticle.title);
@@ -118,9 +118,9 @@ public class Main {
 	private static void makeTestData() {
 		System.out.println("테스트를 위한 데이터를 생성합니다.");
 		
-		articles.add(new Article(1, Util.getNowDateStr(), "제목1", "내용1", 11))
-		articles.add(new Article(2, Util.getNowDateStr(), "제목2", "내용2", 22))
-		articles.add(new Article(3, Util.getNowDateStr(), "제목3", "내용3", 33))
+		articles.add(new Article(1, Util.getNowDateStr(), "제목1", "내용1", 11));
+		articles.add(new Article(2, Util.getNowDateStr(), "제목2", "내용2", 22));
+		articles.add(new Article(3, Util.getNowDateStr(), "제목3", "내용3", 33));
 	}
 
 }
@@ -133,23 +133,19 @@ class Article {
 	String regDate;
 
 	public Article(int id, String regDate, String title, String body) {
+		this(id, regDate, title, body, 0);
+	}
+
+	public Article(int id, String regDate, String title, String body, int hit) {
 		this.id = id;
 		this.regDate = regDate;
 		this.title = title;
 		this.body = body;
-		this.hit = 0;
+		this.hit = hit;
 	}
 
 	public void incereaseHit() {
 		hit++;
-	}
-
-	public Article(int id, int hit, String regDate, String title, String body) {
-		this.id = id;
-		this.hit = hit;
-		this.regDate = regDate;
-		this.title = title;
-		this.body = body;
 	}
 
 }
