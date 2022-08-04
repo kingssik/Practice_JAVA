@@ -6,12 +6,15 @@ import java.util.Scanner;
 
 import display.util.Util;
 import dto.Article;
+import dto.Member;
 
 public class App {
 	private List<Article> articles;
+	private List<Member> members;
 
 	public App() {
 		articles = new ArrayList<>();
+		members = new ArrayList<>();
 	}
 
 	public void run() {
@@ -33,8 +36,35 @@ public class App {
 			if (cmd.equals("exit")) {
 				break;
 			}
+			if (cmd.equals("member join")) {
+				
+				int id = members.size() + 1;
+				String regDate = Util.getNowDateStr();
+				
+				while(true) {
+					System.out.printf("로그인 아이디 : ");
+					String loginId = sc.nextLine();
+					
+				}
+				
+				while(true) {
+					System.out.printf("비밀번호 : ");
+					String loginPw = sc.nextLine();
+					System.out.printf("비밀번호 재확인 : ");
+					String loginPwConfirm = sc.nextLine();
+					
+				}
+				
+				
+				System.out.printf("이름 : ");
+				String name = sc.nextLine();
 
-			if (cmd.equals("article write")) {
+				Member member = new Member(id, regDate, loginId, loginPw, name);
+				members.add(member);
+
+				System.out.printf("%d번 회원이 가입했습니다.\n", id);
+				
+			} else if (cmd.equals("article write")) {
 				int id = articles.size() + 1;
 				String regDate = Util.getNowDateStr();
 				System.out.printf("제목 : ");
@@ -57,7 +87,7 @@ public class App {
 
 				System.out.printf("검색어 : %s\n", searchKeyword);
 
-				List<Article> forPrintArticles = articles;	// ArrayList에 접근할 수 있는 변수를 하나 더 만든 것
+				List<Article> forPrintArticles = articles; // ArrayList에 접근할 수 있는 변수를 하나 더 만든 것
 
 				if (searchKeyword.length() > 0) {
 					forPrintArticles = new ArrayList<>();
