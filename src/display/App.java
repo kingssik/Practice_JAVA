@@ -53,12 +53,13 @@ public class App {
 					break;
 				}
 				
-				String loginPw = null; 
+				String loginPw = null;
+				String loginPwConfirm = null;
 				while (true) {
 					System.out.printf("비밀번호 : ");
 					loginPw = sc.nextLine();
 					System.out.printf("비밀번호 재확인 : ");
-					String loginPwConfirm = sc.nextLine();
+					loginPwConfirm = sc.nextLine();
 
 					if (loginPw.equals(loginPwConfirm) == false) {
 						System.out.println("비밀번호가 일치하지 않습니다.");
@@ -191,12 +192,24 @@ public class App {
 	}
 
 	private boolean isJoinableId(String loginId) {
-		for(Member member : members) {
-			if (member.loginId.equals(loginId) == true) {
-				return false;
-			}
+		int index = getMemberIndexById(loginId);
+
+		if (index != -1) {
+			return false;
 		}
 		return true;
+	}
+
+	private int getMemberIndexById(String loginId) {
+		int i = 0;
+		for (Member member : members) {
+
+			if (member.loginId.equals(loginId)) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
 	}
 
 	private int getArticleIndexById(int id) {
@@ -212,19 +225,12 @@ public class App {
 	}
 
 	private Article getArticleById(int id) {
-//		=== ver 2 ===		// 중복을 최소화하기 위함
+
 		int index = getArticleIndexById(id);
 
 		if (index != -1) {
 			return articles.get(index);
 		}
-//		=== ver 1 ===
-//		for (Article article : articles) {
-//
-//			if (article.id == id) {
-//				return article;
-//			}
-//		}
 		return null;
 	}
 
