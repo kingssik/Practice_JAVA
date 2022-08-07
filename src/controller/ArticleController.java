@@ -6,9 +6,8 @@ import java.util.Scanner;
 
 import display.util.Util;
 import dto.Article;
-import dto.Member;
 
-public class ArticleController {
+public class ArticleController extends Controller {
 
 	private Scanner sc;
 	private List<Article> articles;
@@ -18,6 +17,10 @@ public class ArticleController {
 		this.articles = articles;
 	}
 
+	@Override
+	public void doAction(String cmd) {
+		
+	}
 
 	public void doWrite() {
 		int id = articles.size() + 1;
@@ -152,4 +155,6 @@ public class ArticleController {
 		}
 		return null;
 	}
+
+
 }

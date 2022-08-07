@@ -6,14 +6,19 @@ import java.util.Scanner;
 import display.util.Util;
 import dto.Member;
 
-public class MemberController {
-	
+public class MemberController extends Controller {
+
 	private Scanner sc;
 	private List<Member> members;
-	
+
 	public MemberController(Scanner sc, List<Member> members) {
 		this.sc = sc;
 		this.members = members;
+	}
+	
+	@Override
+	public void doAction(String cmd) {
+		
 	}
 
 	public void doJoin() {
@@ -77,4 +82,5 @@ public class MemberController {
 		}
 		return -1;
 	}
+
 }
