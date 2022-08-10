@@ -11,6 +11,8 @@ public class ArticleController extends Controller {
 
 	private Scanner sc;
 	private List<Article> articles;
+	private String actionMethodName;
+	private String cmd;
 
 	public ArticleController(Scanner sc, List<Article> articles) {
 		this.sc = sc;
@@ -20,18 +22,26 @@ public class ArticleController extends Controller {
 	@Override
 	public void doAction(String cmd, String actionMethodName) {
 		this.cmd = cmd;
-		if (cmd.equals("article write")) {
-			this.doWrite();
-		} else if (cmd.startsWith("article list")) {
-			this.showList(cmd);
-		} else if (cmd.startsWith("article detail ")) {
-			this.showDetail(cmd);
-		} else if (cmd.startsWith("article modify ")) {
-			this.doModify(cmd);
-		} else if (cmd.startsWith("article delete ")) {
-			this.doDelete(cmd);
-		} else {
+		this.actionMethodName = actionMethodName;
+		switch (actionMethodName) {
+		case "list":
+			showList();
+			break;
+		case "write":
+			doWrite();
+			break;
+		case "detail":
+			showDetail();
+			break;
+		case "modify":
+			doModify();
+			break;
+		case "delete":
+			doDelete();
+			break;
+		default:
 			System.out.println("존재하지 않는 명령어입니다");
+			break;
 		}
 	}
 
@@ -49,7 +59,7 @@ public class ArticleController extends Controller {
 		System.out.printf("%d번 글이 생성되었습니다.\n", id);
 	}
 
-	public void showList(String cmd) {
+	public void showList() {
 		if (articles.size() == 0) {
 			System.out.println("게시물이 없습니다.");
 			return;
@@ -85,7 +95,7 @@ public class ArticleController extends Controller {
 
 	}
 
-	public void showDetail(String cmd) {
+	public void showDetail() {
 		String[] cmdBits = cmd.split(" ");
 
 		int id = Integer.parseInt(cmdBits[2]);
@@ -107,7 +117,7 @@ public class ArticleController extends Controller {
 
 	}
 
-	public void doModify(String cmd) {
+	public void doModify() {
 		String[] cmdBits = cmd.split(" ");
 
 		int id = Integer.parseInt(cmdBits[2]);
@@ -129,7 +139,7 @@ public class ArticleController extends Controller {
 		System.out.printf("%d번 게시물을 수정했습니다.\n", id);
 	}
 
-	public void doDelete(String cmd) {
+	public void doDelete() {
 		String[] cmdBits = cmd.split(" ");
 
 		int id = Integer.parseInt(cmdBits[2]);

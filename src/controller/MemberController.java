@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import display.util.Util;
+import dto.Article;
 import dto.Member;
 
 public class MemberController extends Controller {
@@ -26,7 +27,24 @@ public class MemberController extends Controller {
 		case "join":
 			doJoin();
 			break;
+		case "login":
+			doLogin();
+			break;
+		default:
+			System.out.println("존재하지 않는 명령어입니다");
+			break;
 		}
+	}
+
+	private void doLogin() {
+		int id = members.size() + 1;
+		String regDate = Util.getNowDateStr();
+		System.out.printf("로그인 아이디 : ");
+		String loginId = sc.nextLine();
+		System.out.printf("로그인 비밀번호 : ");
+		String loginPw = sc.nextLine();
+
+		System.out.printf("로그인 되었습니다.\n");
 	}
 
 	public void doJoin() {
