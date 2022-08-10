@@ -50,6 +50,7 @@ public class App {
 				continue;
 			}
 			String controllerName = cmdBits[0];
+			String actionMethodName = cmdBits[1];
 			
 			Controller controller = null;
 			
@@ -62,7 +63,7 @@ public class App {
 				continue;
 			}
 			
-			controller.doAction(cmd);
+			controller.doAction(cmd, actionMethodName);
 			
 //			if (cmd.equals("member join")) {
 //				memberController.doJoin();

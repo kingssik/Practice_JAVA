@@ -1,5 +1,6 @@
 package controller;
 
 public abstract class Controller {
-	public abstract void doAction(String cmd);
+	public String cmd;
+	public abstract void doAction(String cmd, String actionMethodName);
 }

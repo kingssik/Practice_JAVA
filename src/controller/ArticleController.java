@@ -11,15 +11,28 @@ public class ArticleController extends Controller {
 
 	private Scanner sc;
 	private List<Article> articles;
-	
+
 	public ArticleController(Scanner sc, List<Article> articles) {
 		this.sc = sc;
 		this.articles = articles;
 	}
 
 	@Override
-	public void doAction(String cmd) {
-		
+	public void doAction(String cmd, String actionMethodName) {
+		this.cmd = cmd;
+		if (cmd.equals("article write")) {
+			this.doWrite();
+		} else if (cmd.startsWith("article list")) {
+			this.showList(cmd);
+		} else if (cmd.startsWith("article detail ")) {
+			this.showDetail(cmd);
+		} else if (cmd.startsWith("article modify ")) {
+			this.doModify(cmd);
+		} else if (cmd.startsWith("article delete ")) {
+			this.doDelete(cmd);
+		} else {
+			System.out.println("존재하지 않는 명령어입니다");
+		}
 	}
 
 	public void doWrite() {
@@ -155,6 +168,5 @@ public class ArticleController extends Controller {
 		}
 		return null;
 	}
-
 
 }
